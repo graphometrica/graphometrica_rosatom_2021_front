@@ -9,21 +9,8 @@ export const HomePage = () => {
 
 
   return (
-    <div className='tst'>
-      <p>HomePage</p>
-
-
-      <Space>
-
-        <Button
-          type="primary">
-          Button
-        </Button>
-
-
-      </Space>
-
-
+    <div>
+      <p>Home page</p>
     </div>
   )
 }

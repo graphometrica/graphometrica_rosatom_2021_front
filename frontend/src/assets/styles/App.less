@@ -4,3 +4,128 @@
 .tst {
   background-color: #cccccc;
 }
+
+// .ant-layout-sider.ant-layout-sider-dark {
+//   background: rgb(0, 21, 41);
+//   background: linear-gradient(
+//     180deg,
+//     rgba(0, 21, 41, 1) 10%,
+//     rgba(24, 144, 255, 1) 100%
+//   );
+// }
+
+// .ant-menu.ant-menu-root.ant-menu-inline.ant-menu-dark {
+//   background: unset;
+// }
+
+.ant-layout-sider.ant-layout-sider-light {
+  max-height: calc(100vh - 60px);
+}
+
+.ant-layout-sider-zero-width-trigger.ant-layout-sider-zero-width-trigger-left {
+  z-index: 2;
+  top: 12px;
+}
+
+.app-content {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+}
+
+.ant-layout-header {
+  padding-left: 24px;
+}
+
+.busy-indicator {
+  width: 130px;
+}
+
+.create-route-bar {
+  top: 88;
+  height: calc(100vh - 90px);
+}
+
+.calculate-route-button {
+  height: calc(100vh - 80px);
+}
+
+.nobg {
+  background: unset;
+}
+
+.rdbg {
+  background: rgb(117, 58, 136);
+  background: linear-gradient(
+    90deg,
+    rgba(117, 58, 136, 1) 7%,
+    rgba(245, 34, 45, 1) 100%
+  );
+}
+
+.grgb {
+  background: rgb(117, 58, 136);
+  background: linear-gradient(
+    90deg,
+    rgba(117, 58, 136, 1) 7%,
+    rgba(56, 158, 13, 1) 100%
+  );
+}
+
+.nav-header-container {
+  background: rgb(24, 144, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(24, 144, 255, 1) 0%,
+    rgba(117, 58, 136, 1) 10%
+  );
+}
+
+.gradient-btn {
+  background: rgb(117, 58, 136);
+  background: radial-gradient(
+    circle,
+    rgba(117, 58, 136, 1) 0%,
+    rgba(24, 144, 255, 1) 80%
+  );
+}
+
+@media screen and (max-width: 990px) {
+  .calculate-route-button {
+    font-size: 12px;
+    height: 50px;
+  }
+  .create-route-bar {
+    top: 76;
+    height: 50px;
+  }
+
+  .ant-layout {
+    background: unset;
+  }
+
+  .ant-layout-header {
+    padding-left: 48px;
+  }
+
+  .app-content {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 12px;
+  }
+
+  .nav-header-title {
+    font-size: 12px;
+  }
+
+  .busy-indicator {
+    font-size: 12px;
+    width: 117px;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .nav-header-bar {
+    padding-right: 200px;
+  }
+}
