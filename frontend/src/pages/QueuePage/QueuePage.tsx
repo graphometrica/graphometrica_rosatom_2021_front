@@ -27,16 +27,16 @@ export const QueuePage = () => {
 
         let line = null;
 
-        if (line) {
-          if (linesMap[i.lineId]) {
-            line = linesMap[i.lineId]
-          } else {
-            line = lines.find(j => j.id === i.lineId);
-            linesMap[line.id] = line;
-          }
-
-          stationsMap[i.stationId] = { ...i, line }
+        //if (line) {
+        if (linesMap[i.lineId]) {
+          line = linesMap[i.lineId]
+        } else {
+          line = lines.find(j => j.id === i.lineId);
+          linesMap[line.id] = line;
         }
+
+        stationsMap[i.stationId] = { ...i, line }
+        //}
 
 
       })

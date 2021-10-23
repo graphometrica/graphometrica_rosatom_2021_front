@@ -27,24 +27,25 @@ export const CalculatedPage = () => {
 
         let line = null;
 
-        if (line) {
-          if (linesMap[i.lineId]) {
-            line = linesMap[i.lineId]
-          } else {
-            line = lines.find(j => j.id === i.lineId);
-            linesMap[line.id] = line;
-          }
-
-          stationsMap[i.stationId] = { ...i, line }
+        //if (line) {
+        if (linesMap[i.lineId]) {
+          line = linesMap[i.lineId]
+        } else {
+          line = lines.find(j => j.id === i.lineId);
+          linesMap[line.id] = line;
         }
+
+        stationsMap[i.stationId] = { ...i, line }
+        //}
 
 
       })
 
       //console.log(stationsMap)
       routes.filter(i => i.status === 3).forEach(i => {
-        let routeText = i.stations.map(j => stationsMap[j].name).join(', ')
-        let resultRouteText = i.result.route.map(j => stationsMap[j].name).join(', ')
+
+        let routeText = i.stations.map(j => stationsMap[j]?.name || null)?.join(', ')
+        let resultRouteText = i.result.route.map(j => stationsMap[j]?.name || null)?.join(', ')
 
         result.push({
           ...i,

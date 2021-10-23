@@ -4,7 +4,7 @@ export type IStation = {
   stationId: string //
   lineId?: string,
   name: string,
-  inCirle?: boolean,
+  inCircle?: boolean,
   top: number,
   left: number,
   labelTop?: number,

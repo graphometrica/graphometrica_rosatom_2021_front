@@ -6,10 +6,15 @@ import { useHistory } from 'react-router-dom';
 import { createRouteFx, IRoute, useCreateRouteIsBusy, useLines, useStations } from 'src/store';
 
 
-export const SelectByTransfer = () => {
+export const SelectByTransfer = (props: any) => {
 
   const lines = useLines();
   const stations = useStations();
+  //const { lines, stations } = props;
+  // const lines = useLines();
+  // const stations = useStations();
+
+  //console.log(lines, stations)
 
   const [transferItems, setTransferItems] = React.useState<Array<{
     key?: string,
@@ -30,23 +35,25 @@ export const SelectByTransfer = () => {
 
         let line = null;
 
-        if (line) {
-          if (linesMap[i.lineId]) {
-            line = linesMap[i.lineId]
-          } else {
-            line = lines.find(j => j.id === i.lineId);
-            linesMap[line.id] = line;
-          }
-
-          result.push({
-            key: i.stationId,
-            title: i.name,
-            line: line
-          })
+        //if (line) {
+        if (linesMap[i.lineId]) {
+          line = linesMap[i.lineId]
+        } else {
+          line = lines.find(j => j.id === i.lineId);
+          linesMap[line.id] = line;
         }
+
+        result.push({
+          key: i.stationId,
+          title: i.name,
+          line: line
+        })
+        //}
 
 
       })
+
+      //console.log(linesMap)
 
       setTransferItems(result)
     }
