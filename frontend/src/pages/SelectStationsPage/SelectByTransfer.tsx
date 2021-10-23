@@ -4,6 +4,7 @@ import { useStore } from 'effector-react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { createRouteFx, IRoute, useCreateRouteIsBusy, useLines, useStations } from 'src/store';
+import { invertColor } from 'src/utils';
 
 
 export const SelectByTransfer = (props: any) => {
@@ -64,7 +65,7 @@ export const SelectByTransfer = (props: any) => {
   const [keys, setKeys] = React.useState([])
 
   const filterOption = (inputValue, option) => {
-    return option.title.toLowerCase().indexOf(inputValue) >= 0
+    return option.title.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0
   }
 
   const handleChange = (targetKeys) => {
@@ -161,7 +162,11 @@ export const SelectByTransfer = (props: any) => {
         render={item => {
           return (
             <Space>
-              <Tag style={{ background: '#' + item.line.color, borderRadius: 12 }}>&nbsp;&nbsp;</Tag>
+              <Tag style={{
+                background: '#' + item.line.color,
+                color: invertColor(item.line.color),
+                borderRadius: 12
+              }}>м</Tag>
               <span>{item.title}</span>
             </Space>
           )

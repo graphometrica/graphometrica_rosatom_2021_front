@@ -1,7 +1,11 @@
 import { Button, Collapse, Divider, Space, Tag } from 'antd';
 import React from 'react';
+import { CSVLink } from 'react-csv';
 import { useLines, useRoutes, useStations } from 'src/store';
-import { genericDateToRusDateTime } from 'src/utils';
+import { convertJsonStringToCsv, genericDateToRusDateTime } from 'src/utils';
+
+import { OptimizedRoute } from './OptimizedRoute';
+import { SourceRoute } from './SourceRoute';
 
 const { Panel } = Collapse;
 
@@ -44,13 +48,13 @@ export const CalculatedPage = () => {
       //console.log(stationsMap)
       routes.filter(i => i.status === 3).forEach(i => {
 
-        let routeText = i.stations.map(j => stationsMap[j]?.name || null)?.join(', ')
-        let resultRouteText = i.result.route.map(j => stationsMap[j]?.name || null)?.join(', ')
+        let sourceStationNames = i.stations.map(j => stationsMap[j]?.name || null)
+        let optimizedStationNames = i.result.route.map(j => stationsMap[j]?.name || null)
 
         result.push({
           ...i,
-          routeText,
-          resultRouteText
+          sourceStationNames,
+          optimizedStationNames
         })
       })
 
@@ -74,19 +78,36 @@ export const CalculatedPage = () => {
             <p>статус: {mapStatusToText(i.status)}</p>
             <Divider></Divider>
 
-            <b>исходный маршрут</b>
-            <p><span>{i.routeText}</span></p>
-            <b>оптимальный маршрут</b>
-            <p><span>{i.resultRouteText}</span></p>
+
+            <SourceRoute stationNames={i.sourceStationNames}></SourceRoute>
+
+            <OptimizedRoute stationNames={i.optimizedStationNames} />
+
             <Divider></Divider>
             <p><b>solution type:</b> {i.result.solutionType}</p>
             <p><b>ham energy:</b> {i.result.hamEnergy}</p>
             <p><b>solver type:</b> {i.result.solverType}</p>
             <Divider></Divider>
             <Space>
-              <Button type="primary">Скачать маршрут в CSV</Button>
-              <Button>Скачать Qubo Matrix в CSV</Button>
-              <Button>Скачать Adjacency MatrixCsv в CSV</Button>
+
+              <CSVLink
+                filename={"route.csv"}
+                className="ant-btn ant-btn-primary"
+                data={i.result.routeCsv}
+              >Скачать маршрут в CSV</CSVLink>
+
+              <CSVLink
+                filename={"quboMatrix.csv"}
+                className="ant-btn"
+                data={convertJsonStringToCsv(i.result.quboMatrixCsv)}
+              >Скачать Qubo Matrix в CSV</CSVLink>
+
+              <CSVLink
+                filename={"adjacencyMatrix.csv"}
+                className="ant-btn"
+                data={convertJsonStringToCsv(i.result.adjacencyMatrixCsv)}
+              >Скачать Adjacency Matrix в CSV</CSVLink>
+
             </Space>
 
           </Panel>

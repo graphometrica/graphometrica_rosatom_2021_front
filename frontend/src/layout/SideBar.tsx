@@ -6,7 +6,7 @@ import {
   PlusOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Badge, Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
 import { HashRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
@@ -65,7 +65,8 @@ export const SideBar = () => {
         padding: 16,
         fontSize: 24,
         background: 'rgba(24, 144, 255, 1)',
-        margin: 0
+        margin: 0,
+        zIndex: 2
       }}>
         Graphometrica
       </div>
@@ -76,11 +77,17 @@ export const SideBar = () => {
         defaultOpenKeys={['rootMenu']}
         style={{ height: '100%' }}
       >
+
         <SubMenu key="rootMenu" icon={<NodeIndexOutlined />} title="Маршрут">
+
           <Menu.Item onClick={selectWithKey}
-            icon={<PlusOutlined />} key="create">Создать</Menu.Item >
-          <Menu.Item onClick={selectWithKey} icon={<UnorderedListOutlined />} key="queue">В очереди</Menu.Item>
-          <Menu.Item onClick={selectWithKey} icon={<CarryOutOutlined />} key="calculated">Посчитано</Menu.Item>
+            icon={<PlusOutlined />} key="create">
+            Создать</Menu.Item >
+
+          <Menu.Item onClick={selectWithKey} icon={<UnorderedListOutlined />} key="queue">
+            <Badge size="small" count={1} offset={[15, 15]} color="blue">В очереди</Badge></Menu.Item>
+          <Menu.Item onClick={selectWithKey} icon={<CarryOutOutlined />} key="calculated">
+            <Badge size="small" count={1} offset={[15, 15]} color="blue">Посчитано</Badge></Menu.Item>
         </SubMenu>
 
       </Menu>

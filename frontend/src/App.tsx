@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
 
 import { LayoutContainer } from './layout';
-import { CalculatedPage, QueuePage, SelectStationsPage } from './pages';
+import { CalculatedPage, HomePage, QueuePage, SelectStationsPage } from './pages';
 import { getLinesFx, getRoutesFx, getStationsFx } from './store';
 
 
@@ -31,6 +31,12 @@ function App() {
   return (
 
     <>
+      <Route path="/test" exact >
+        <LayoutContainer>
+          <HomePage />
+        </LayoutContainer>
+      </Route>
+
       <Route path="/" exact >
         <LayoutContainer>
           <SelectStationsPage />
