@@ -35,13 +35,13 @@ export const LayoutContainer: React.FC = (props) => {
             style={{
               marginTop: 64,
               padding: 0,
-              minHeight: 'calc(100vh - 135px)'
+              minHeight: 'calc(100vh - 85px)'
             }}>
             {props.children}
           </div>
         </Content>
 
-        <Footer style={{ textAlign: 'center' }}>Graphometrica ©2021</Footer>
+        {/* <Footer style={{ textAlign: 'center' }}>Graphometrica © 2021</Footer> */}
       </Layout>
     </Layout >
   )

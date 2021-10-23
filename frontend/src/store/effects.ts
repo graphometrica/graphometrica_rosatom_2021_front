@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import axios from 'axios';
 import {
   combine,
@@ -46,7 +47,17 @@ export const createRouteFx = createEffect<IRoute, IRoute>(async (route) => {
   return callBackend('POST', '/createRoute', route)
 })
 
+export const setIsCreateRouteBusy = createEvent<boolean>()
+export const $isCreateRouteBusy = createStore(false)
+  .on(setIsCreateRouteBusy, (_, value) => value)
+
+createRouteFx.pending.watch(pending => {
+  setIsCreateRouteBusy(pending)
+})
+
+
 createRouteFx.done.watch(() => {
+  message.success('Маршрут добавлен в очередь');
   getRoutesFx();
 })
 
@@ -63,6 +74,7 @@ sample({
     } else {
       setComputerBusyState(false)
     }
-    console.log('fx', result)
   })
 })
+
+

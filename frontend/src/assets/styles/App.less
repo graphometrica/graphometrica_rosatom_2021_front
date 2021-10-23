@@ -18,6 +18,10 @@
 //   background: unset;
 // }
 
+.ant-layout-sider.ant-layout-sider-light {
+  max-height: calc(100vh - 60px);
+}
+
 .ant-layout-sider-zero-width-trigger.ant-layout-sider-zero-width-trigger-left {
   z-index: 2;
   top: 12px;
@@ -33,7 +37,33 @@
   padding-left: 24px;
 }
 
+.busy-indicator {
+  width: 130px;
+}
+
+.create-route-bar {
+  top: 88;
+  height: calc(100vh - 90px);
+}
+
+.calculate-route-button {
+  height: calc(100vh - 80px);
+}
+
 @media screen and (max-width: 990px) {
+  .calculate-route-button {
+    font-size: 12px;
+    height: 50px;
+  }
+  .create-route-bar {
+    top: 76;
+    height: 50px;
+  }
+
+  .ant-layout {
+    background: unset;
+  }
+
   .ant-layout-header {
     padding-left: 48px;
   }
@@ -42,6 +72,15 @@
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 12px;
+  }
+
+  .nav-header-title {
+    font-size: 12px;
+  }
+
+  .busy-indicator {
+    font-size: 12px;
+    width: 117px;
   }
 }
 

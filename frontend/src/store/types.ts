@@ -1,8 +1,8 @@
 export type IStation = {
 
   id: number,
-  stationId: string
-  line: string,
+  station_id: string
+  line_id: string,
   name: string,
   inCirle?: boolean,
   top: number,
@@ -21,7 +21,7 @@ export type ILine = {
   name: string,
   isMCC?: boolean,
   isCircle?: boolean,
-  color: "ffcec6",
+  color: string,
   payload?: any,
 }
 

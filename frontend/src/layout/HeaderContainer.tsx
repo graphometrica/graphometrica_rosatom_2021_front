@@ -29,7 +29,7 @@ export const HeaderContainer = () => {
   let title = '';
 
   if (selectedSideMenu === 'create') {
-    title = 'Выберите станции метро'
+    title = 'Выберите станции'
   } else if (selectedSideMenu === 'queue') {
     title = 'Маршруты в очереди'
   } else if (selectedSideMenu === 'calculated') {
@@ -51,7 +51,7 @@ export const HeaderContainer = () => {
 
       <Row className="nav-header-bar">
         <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-          <h3 style={{ color: '#fff' }}>{title}</h3>
+          <h3 className='nav-header-title' style={{ color: '#fff' }}>{title}</h3>
         </Col>
 
         <Col xs={12} sm={12} md={12} lg={12} xl={12}

@@ -1,4 +1,5 @@
-import { CheckCircleFilled, FireFilled } from '@ant-design/icons';
+import { CheckCircleFilled, FireFilled, LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import React from 'react';
 
 
@@ -9,16 +10,30 @@ export const ComputerBusyStatus: React.FC<{
   isBusy: boolean
 }> = ({ isBusy }) => {
 
-  const bg = isBusy ? '#f5222d' : '#389e0d'
-  const icon = isBusy ? <span>занят <FireFilled /></span> : <span>свободен <CheckCircleFilled /></span>
+  let bg = 'unset';
+  if (isBusy === true) {
+    bg = '#f5222d'
+  } else if (isBusy === false) {
+    bg = '#389e0d'
+  }
+  let icon = null;
+  if (isBusy === true) {
+    icon = <span>занят <FireFilled /></span>
+  } else if (isBusy === false) {
+    icon = <span>свободен <CheckCircleFilled /></span>
+  } else if (isBusy === null) {
+    icon = <Spin indicator={<LoadingOutlined style={{ fontSize: 24, color: '#fff' }} spin />} />
+  }
+
 
   return (
-    <div style={{
-      float: 'right',
-      width: '110px',
-      background: bg,
-      textAlign: 'center',
-    }}>
+    <div
+      className="busy-indicator"
+      style={{
+        float: 'right',
+        background: bg,
+        textAlign: 'center',
+      }}>
       {icon}
     </div>
   )
