@@ -13,13 +13,15 @@ const mockData = {
 
 export const callBackend = async (method: "GET" | "POST", url: string, data?: any) => {
 
-  console.log('callBackend', method, url, data)
+  //console.log('callBackend', method, url, data)
   if (MOCK_ENABLE) {
     const key = `${method}${url}`;
     console.log('callBackend mock', key)
     await sleep(1000);
     return mockData[key] || [];
   }
+
+
 
   return axios({
     method,

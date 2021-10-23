@@ -1,8 +1,8 @@
 export type IStation = {
 
   id: number, //
-  station_id: string //
-  line_id: string,
+  stationId: string //
+  lineId?: string,
   name: string,
   inCirle?: boolean,
   top: number,

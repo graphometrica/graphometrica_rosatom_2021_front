@@ -30,18 +30,22 @@ export const SelectByTransfer = () => {
 
         let line = null;
 
-        if (linesMap[i.line_id]) {
-          line = linesMap[i.line_id]
-        } else {
-          line = lines.find(j => j.id === i.line_id);
-          linesMap[line.id] = line;
+        if (line) {
+          if (linesMap[i.lineId]) {
+            line = linesMap[i.lineId]
+          } else {
+            line = lines.find(j => j.id === i.lineId);
+            linesMap[line.id] = line;
+          }
+
+          result.push({
+            key: i.stationId,
+            title: i.name,
+            line: line
+          })
         }
 
-        result.push({
-          key: i.station_id,
-          title: i.name,
-          line: line
-        })
+
       })
 
       setTransferItems(result)
