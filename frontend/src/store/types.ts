@@ -26,13 +26,13 @@ export type ILine = {
 }
 
 export type IRoute = {
-  routeId?: string,
-  stations: string[], // (1) какое название поля?
+  routeId?: number,
+  stations: string[],
   status?: 1 | 2 | 3,
   created?: number,
   payload?: any,
   result?: {
-    route: string[], // (2)) какое название поля?
+    route: string[],
     totalTime?: number,
     routeCsv?: string,
     quboMatrixCsv?: string,
