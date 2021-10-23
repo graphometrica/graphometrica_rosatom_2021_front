@@ -9,13 +9,35 @@ import {
 import { Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
+import { HashRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
+import { menuSelected, useSelectedSideMenu } from 'src/store';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
+
+
 
 
 
 export const SideBar = () => {
 
+  const history = useHistory()
+  const location = useLocation();
+
+  const selectedSideMenu = useSelectedSideMenu();
+
+  React.useEffect(() => {
+
+
+    if (location.pathname === '/') {
+      menuSelected('create')
+    } else if (location.pathname === '/queue') {
+      menuSelected('queue')
+    } else if (location.pathname === '/calculated') {
+      menuSelected('calculated')
+    }
+  }, [location])
+
+  const selectWithKey = (e: any) => history.push("/" + (e.key === "create" ? "" : e.key))
 
   return (
     <Sider
@@ -36,22 +58,22 @@ export const SideBar = () => {
         height: 32,
         margin: 16,
         padding: 0,
-        // background: '#ccc',
-
         fontSize: 24
       }}>
         Graphometrica
       </div>
       <Menu
         mode="inline"
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        selectedKeys={[selectedSideMenu]}
+
+        defaultOpenKeys={['rootMenu']}
         style={{ height: '100%' }}
       >
-        <SubMenu key="sub1" icon={<NodeIndexOutlined />} title="Маршрут">
-          <Menu.Item icon={<PlusOutlined />} key="1">Создать</Menu.Item >
-          <Menu.Item icon={<UnorderedListOutlined />} key="2">В очереди</Menu.Item>
-          <Menu.Item icon={<CarryOutOutlined />} key="3">Посчитано</Menu.Item>
+        <SubMenu key="rootMenu" icon={<NodeIndexOutlined />} title="Маршрут">
+          <Menu.Item onClick={selectWithKey}
+            icon={<PlusOutlined />} key="create">Создать</Menu.Item >
+          <Menu.Item onClick={selectWithKey} icon={<UnorderedListOutlined />} key="queue">В очереди</Menu.Item>
+          <Menu.Item onClick={selectWithKey} icon={<CarryOutOutlined />} key="calculated">Посчитано</Menu.Item>
         </SubMenu>
 
       </Menu>

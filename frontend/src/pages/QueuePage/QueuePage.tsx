@@ -1,16 +1,13 @@
 import { Button, Space } from 'antd';
-import { useStore } from 'effector-react';
 import React from 'react';
 
 
-
-
-export const HomePage = () => {
+export const QueuePage = () => {
 
 
   return (
     <div>
-      <p>Home page</p>
+      <p>QueuePage</p>
     </div>
   )
 }

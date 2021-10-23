@@ -3,14 +3,11 @@ import { useStore } from 'effector-react';
 import React from 'react';
 
 
-
-
-export const HomePage = () => {
-
+export const SelectStationsPage = () => {
 
   return (
     <div>
-      <p>Home page</p>
+      <p>SelectStationsPage</p>
     </div>
   )
 }
