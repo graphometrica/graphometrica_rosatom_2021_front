@@ -28,7 +28,7 @@ ReactDOM.render(
     <Router>
       <App />
     </Router>
-    <ReactQueryDevtools initialIsOpen={true} />
+    {/* <ReactQueryDevtools initialIsOpen={true} /> */}
   </QueryClientProvider>
   ,
   document.getElementById('root')
