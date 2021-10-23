@@ -10,11 +10,12 @@ export const ComputerBusyStatus: React.FC<{
   isBusy: boolean
 }> = ({ isBusy }) => {
 
-  let bg = 'unset';
+  let cln = 'nobg'
   if (isBusy === true) {
-    bg = '#f5222d'
+    cln = 'rdbg'
   } else if (isBusy === false) {
-    bg = '#389e0d'
+    cln = 'grgb'
+    //bg = { background: '#389e0d' }
   }
   let icon = null;
   if (isBusy === true) {
@@ -28,11 +29,11 @@ export const ComputerBusyStatus: React.FC<{
 
   return (
     <div
-      className="busy-indicator"
+      className={"busy-indicator " + cln}
       style={{
         float: 'right',
-        background: bg,
         textAlign: 'center',
+
       }}>
       {icon}
     </div>

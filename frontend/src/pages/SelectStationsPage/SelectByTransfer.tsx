@@ -116,13 +116,13 @@ export const SelectByTransfer = () => {
         disabled={selected.length < 3}
         loading={isBusy}
         onClick={calculateRoute}
-        className='calculate-route-button'
+        className='calculate-route-button gradient-btn'
         style={{
 
           fontWeight: 700
         }}
         type="primary"
-      ><FireFilled /> Построить<br />маршрут</Button></div>
+      ><FireFilled /> ПОСТРОИТЬ<br />МАРШРУТ</Button></div>
       <Transfer
         style={{ minWidth: '350px' }}
         locale={{

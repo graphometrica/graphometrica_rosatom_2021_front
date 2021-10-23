@@ -41,6 +41,7 @@ export const SideBar = () => {
 
   return (
     <Sider
+
       theme='light'
       breakpoint="lg"
       collapsedWidth="0"
@@ -51,14 +52,20 @@ export const SideBar = () => {
         console.log(collapsed, type);
       }}
       style={{
-        boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)"
+        boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)",
+        marginTop: 64
       }}
     >
       <div style={{
-        height: 32,
-        margin: 16,
-        padding: 0,
-        fontSize: 24
+        position: 'fixed',
+        top: 0,
+        height: 64,
+        width: 200,
+        color: '#fff',
+        padding: 16,
+        fontSize: 24,
+        background: 'rgba(24, 144, 255, 1)',
+        margin: 0
       }}>
         Graphometrica
       </div>

@@ -1,7 +1,7 @@
 export type IStation = {
 
-  id: number,
-  station_id: string
+  id: number, //
+  station_id: string //
   line_id: string,
   name: string,
   inCirle?: boolean,
@@ -27,12 +27,12 @@ export type ILine = {
 
 export type IRoute = {
   routeId?: string,
-  stations: string[],
+  stations: string[], // (1) какое название поля?
   status?: 1 | 2 | 3,
   created?: number,
   payload?: any,
   result?: {
-    route: string[],
+    route: string[], // (2)) какое название поля?
     totalTime?: number,
     routeCsv?: string,
     quboMatrixCsv?: string,

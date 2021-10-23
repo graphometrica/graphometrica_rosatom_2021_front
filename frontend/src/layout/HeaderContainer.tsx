@@ -44,7 +44,7 @@ export const HeaderContainer = () => {
         zIndex: 1,
         width: '100%',
         color: '#fff',
-        background: 'rgb(117, 58, 136)',
+
         margin: 0,
         paddingRight: 0
       }} >
