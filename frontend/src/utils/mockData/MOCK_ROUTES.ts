@@ -4,7 +4,7 @@ export const MOCK_ROUTES: IRoute[] = [
   {
     routeId: "7812af4c-5f8f-4686-a643-f0d752f95b12",
     stations: ["line1_1", "line1_2", "line1_3", "line1_5", "line1_6"],
-    status: 1,
+    status: 2,
     created: (new Date()).getTime(),
     payload: {},
   },
