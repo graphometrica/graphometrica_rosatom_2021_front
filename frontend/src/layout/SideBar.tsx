@@ -1,16 +1,23 @@
 import {
+  CalculatorOutlined,
   CarryOutOutlined,
+  CheckCircleOutlined,
+  CheckOutlined,
+  FieldBinaryOutlined,
+  FileAddOutlined,
   FireOutlined,
+  HourglassOutlined,
   MenuUnfoldOutlined,
   NodeIndexOutlined,
   PlusOutlined,
+  SlidersOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Badge, Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
 import { HashRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
-import { menuSelected, useSelectedSideMenu } from 'src/store';
+import { menuSelected, useCommonState, useSelectedSideMenu } from 'src/store';
 
 const { Sider } = Layout;
 
@@ -24,6 +31,10 @@ export const SideBar = () => {
   const location = useLocation();
 
   const selectedSideMenu = useSelectedSideMenu();
+  const {
+    queueCount,
+    calculatedCount
+  } = useCommonState();
 
   React.useEffect(() => {
 
@@ -65,7 +76,8 @@ export const SideBar = () => {
         padding: 16,
         fontSize: 24,
         background: 'rgba(24, 144, 255, 1)',
-        margin: 0
+        margin: 0,
+        zIndex: 2
       }}>
         Graphometrica
       </div>
@@ -76,11 +88,17 @@ export const SideBar = () => {
         defaultOpenKeys={['rootMenu']}
         style={{ height: '100%' }}
       >
-        <SubMenu key="rootMenu" icon={<NodeIndexOutlined />} title="Маршрут">
+
+        <SubMenu key="rootMenu" title="Маршрут">
+
           <Menu.Item onClick={selectWithKey}
-            icon={<PlusOutlined />} key="create">Создать</Menu.Item >
-          <Menu.Item onClick={selectWithKey} icon={<UnorderedListOutlined />} key="queue">В очереди</Menu.Item>
-          <Menu.Item onClick={selectWithKey} icon={<CarryOutOutlined />} key="calculated">Посчитано</Menu.Item>
+            icon={<FileAddOutlined />} key="create">
+            Создать</Menu.Item >
+          <Menu.Item onClick={selectWithKey} icon={<HourglassOutlined />} key="queue">
+            <Badge size="small" count={queueCount} offset={[15, 15]} color="blue">В очереди</Badge>
+          </Menu.Item>
+          <Menu.Item onClick={selectWithKey} icon={<CalculatorOutlined />} key="calculated">
+            <Badge size="small" count={calculatedCount} offset={[15, 15]} color="blue">Посчитано</Badge></Menu.Item>
         </SubMenu>
 
       </Menu>

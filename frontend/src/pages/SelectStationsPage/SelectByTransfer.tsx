@@ -1,20 +1,28 @@
-import { CalculatorOutlined, FireFilled } from '@ant-design/icons';
+import { CalculatorOutlined, FireFilled, NodeIndexOutlined } from '@ant-design/icons';
 import { Affix, Button, Col, message, Row, Space, Tag, Transfer } from 'antd';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { createRouteFx, IRoute, useCreateRouteIsBusy, useLines, useStations } from 'src/store';
+import { MetroIcon } from 'src/components';
+import {
+  createRouteFx,
+  IRoute,
+  useCreateRouteIsBusy,
+  useLines,
+  useLinesById,
+  useStations,
+  useStationsByStationId,
+} from 'src/store';
+import { invertColor } from 'src/utils';
 
 
 export const SelectByTransfer = (props: any) => {
 
   const lines = useLines();
   const stations = useStations();
-  //const { lines, stations } = props;
-  // const lines = useLines();
-  // const stations = useStations();
+  // const stationsByStationId = useStationsByStationId()
+  // const linesById = useLinesById();
 
-  //console.log(lines, stations)
 
   const [transferItems, setTransferItems] = React.useState<Array<{
     key?: string,
@@ -28,32 +36,12 @@ export const SelectByTransfer = (props: any) => {
 
     if (stations.length && lines.length) {
 
-      const linesMap = {}
 
-      const result = [];
-      stations.forEach(i => {
+      const result = stations.map(i => ({
+        key: i.stationId,
+        title: i.name
+      }))
 
-        let line = null;
-
-        //if (line) {
-        if (linesMap[i.lineId]) {
-          line = linesMap[i.lineId]
-        } else {
-          line = lines.find(j => j.id === i.lineId);
-          linesMap[line.id] = line;
-        }
-
-        result.push({
-          key: i.stationId,
-          title: i.name,
-          line: line
-        })
-        //}
-
-
-      })
-
-      //console.log(linesMap)
 
       setTransferItems(result)
     }
@@ -64,7 +52,7 @@ export const SelectByTransfer = (props: any) => {
   const [keys, setKeys] = React.useState([])
 
   const filterOption = (inputValue, option) => {
-    return option.title.toLowerCase().indexOf(inputValue) >= 0
+    return option.title.toLowerCase().indexOf(inputValue.toLowerCase()) >= 0
   }
 
   const handleChange = (targetKeys) => {
@@ -98,19 +86,7 @@ export const SelectByTransfer = (props: any) => {
   const history = useHistory()
   const calculateRoute = () => {
     const route: IRoute = {
-      stations: selected,
-      //remote:simcim
-      //remote:gurobi
-      result: {
-        route: [],
-        adjacencyMatrixCsv: '',
-        totalTime: 0,
-        quboMatrixCsv: '',
-        solutionType: '',
-        solverType: 'remote:gurobi',
-        hamEnergy: 0,
-        routeCsv: ''
-      }
+      stations: selected
     };
     createRouteFx(route).then(_ => {
       setSelected([])
@@ -121,8 +97,6 @@ export const SelectByTransfer = (props: any) => {
   }
 
   const isBusy = useCreateRouteIsBusy()
-
-
 
   return (
     <>
@@ -145,7 +119,7 @@ export const SelectByTransfer = (props: any) => {
           fontWeight: 700
         }}
         type="primary"
-      ><FireFilled /> ПОСТРОИТЬ<br />МАРШРУТ</Button></div>
+      ><NodeIndexOutlined /> ПОСТРОИТЬ<br />МАРШРУТ</Button></div>
       <Transfer
         style={{ minWidth: '350px' }}
         locale={{
@@ -173,7 +147,7 @@ export const SelectByTransfer = (props: any) => {
         render={item => {
           return (
             <Space>
-              <Tag style={{ background: '#' + item.line.color, borderRadius: 12 }}>&nbsp;&nbsp;</Tag>
+              <MetroIcon stationId={item.key} />
               <span>{item.title}</span>
             </Space>
           )
