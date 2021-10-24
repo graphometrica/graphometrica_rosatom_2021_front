@@ -26,13 +26,11 @@ function App() {
   return (
 
     <>
-      <Route path="/test" exact >
-        <LayoutContainer>
-          <HomePage />
-        </LayoutContainer>
+      <Route path="/" exact >
+        <HomePage />
       </Route>
 
-      <Route path="/" exact >
+      <Route path="/create" exact >
         <LayoutContainer>
           <SelectStationsPage />
         </LayoutContainer>

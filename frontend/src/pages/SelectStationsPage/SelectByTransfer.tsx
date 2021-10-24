@@ -3,6 +3,7 @@ import { Affix, Button, Col, message, Row, Space, Tag, Transfer } from 'antd';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import places from 'src/assets/photo.json';
 import { MetroIcon } from 'src/components';
 import {
   createRouteFx,
@@ -32,18 +33,33 @@ export const SelectByTransfer = (props: any) => {
     [name: string]: any
   }>>([]);
 
+  const [kuda, setKuda] = React.useState({})
+
   React.useEffect(() => {
 
     if (stations.length && lines.length) {
 
+      const k = {}
 
-      const result = stations.map(i => ({
-        key: i.stationId,
-        title: i.name
-      }))
+      const result = stations.map(i => {
+
+
+        const foundPlace = places.find(j => j.subway.toLowerCase().split('ё').join('е') === i.name.toLowerCase().split('ё').join('е'));
+        if (foundPlace) {
+          k[i.stationId] = foundPlace;
+        }
+
+        return {
+          key: i.stationId,
+          title: i.name
+        }
+      })
+
+      //console.log('k', k)
 
 
       setTransferItems(result)
+      setKuda(k)
     }
 
   }, [stations, lines])
@@ -97,7 +113,7 @@ export const SelectByTransfer = (props: any) => {
   }
 
   const isBusy = useCreateRouteIsBusy()
-
+  //console.log(kuda, transferItems)
   return (
     <>
       <div
@@ -146,9 +162,31 @@ export const SelectByTransfer = (props: any) => {
         onChange={handleChange}
         render={item => {
           return (
-            <Space>
-              <MetroIcon stationId={item.key} />
-              <span>{item.title}</span>
+            <Space direction='vertical'>
+              <Space >
+                <MetroIcon stationId={item.key} />
+                <span>{item.title}</span>
+              </Space>
+              <div>
+
+
+                {kuda[item.key] && !!kuda[item.key]?.images?.length && (
+                  <>
+                    {kuda[item.key]?.images.filter((i, index) => index <= 3)
+                      .map((i, index) => {
+
+                        return (
+                          <a key={index} href={i.site_url} target="_blank" rel="noreferrer">
+                            <img className="iimg" alt='' key={i.image} style={{ width: '54px', marginRight: 6 }} src={i.image} />
+                          </a>
+                        )
+                      })}
+                  </>
+                )}
+
+              </div>
+
+
             </Space>
           )
         }}
