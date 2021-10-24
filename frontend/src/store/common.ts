@@ -14,17 +14,19 @@ import {
 import { useStore } from 'effector-react';
 
 export type ICommonState = {
-  isComputerBusy: boolean
+  isComputerBusy: boolean,
+  queueCount: number,
+  calculatedCount: number
 }
 
-export const setComputerBusyState = createEvent<boolean | null>();
-export const $isComputerBusy = createStore<ICommonState>({
-  isComputerBusy: null
+export const setCommonState = createEvent<ICommonState>();
+export const commonState = createStore<ICommonState>({
+  isComputerBusy: null,
+  queueCount: 0,
+  calculatedCount: 0
+
 })
 
-$isComputerBusy.on(setComputerBusyState, (state, value) => ({
-  ...state,
-  isComputerBusy: value
-}));
+commonState.on(setCommonState, (state, value) => (value));
 
-export const useCommonState = () => useStore($isComputerBusy)
+export const useCommonState = () => useStore(commonState)

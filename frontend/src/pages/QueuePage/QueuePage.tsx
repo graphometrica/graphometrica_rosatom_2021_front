@@ -1,5 +1,6 @@
 import { Button, Collapse, Space, Tag } from 'antd';
 import React from 'react';
+import { NoData } from 'src/components';
 import { useLines, useRoutes, useStations } from 'src/store';
 import { genericDateToRusDateTime } from 'src/utils';
 
@@ -63,6 +64,10 @@ export const QueuePage = () => {
       return "Считается"
     }
     return 'Неизвестно'
+  }
+
+  if (!data.length) {
+    return <NoData icon="ok" message="Все маршруты посчитались" />
   }
 
   return (

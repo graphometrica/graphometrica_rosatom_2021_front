@@ -1,9 +1,16 @@
 import {
+  CalculatorOutlined,
   CarryOutOutlined,
+  CheckCircleOutlined,
+  CheckOutlined,
+  FieldBinaryOutlined,
+  FileAddOutlined,
   FireOutlined,
+  HourglassOutlined,
   MenuUnfoldOutlined,
   NodeIndexOutlined,
   PlusOutlined,
+  SlidersOutlined,
   UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Badge, Layout, Menu } from 'antd';
@@ -78,15 +85,15 @@ export const SideBar = () => {
         style={{ height: '100%' }}
       >
 
-        <SubMenu key="rootMenu" icon={<NodeIndexOutlined />} title="Маршрут">
+        <SubMenu key="rootMenu" title="Маршрут">
 
           <Menu.Item onClick={selectWithKey}
-            icon={<PlusOutlined />} key="create">
+            icon={<FileAddOutlined />} key="create">
             Создать</Menu.Item >
-
-          <Menu.Item onClick={selectWithKey} icon={<UnorderedListOutlined />} key="queue">
-            <Badge size="small" count={1} offset={[15, 15]} color="blue">В очереди</Badge></Menu.Item>
-          <Menu.Item onClick={selectWithKey} icon={<CarryOutOutlined />} key="calculated">
+          <Menu.Item onClick={selectWithKey} icon={<HourglassOutlined />} key="queue">
+            <Badge size="small" count={1} offset={[15, 15]} color="blue">В очереди</Badge>
+          </Menu.Item>
+          <Menu.Item onClick={selectWithKey} icon={<CalculatorOutlined />} key="calculated">
             <Badge size="small" count={1} offset={[15, 15]} color="blue">Посчитано</Badge></Menu.Item>
         </SubMenu>
 

@@ -3,27 +3,22 @@ import { HashRouter as Router, Route, Switch, useHistory, useLocation, useParams
 
 import { LayoutContainer } from './layout';
 import { CalculatedPage, HomePage, QueuePage, SelectStationsPage } from './pages';
-import { getLinesFx, getRoutesFx, getStationsFx } from './store';
+import { downloadDataFx, getLinesFx, getRoutesFx, getStationsFx } from './store';
 
 
 function App() {
   const history = useHistory()
   const location = useLocation();
 
-  const reloadAppData = () => {
-    console.log('reloadAppData')
-    getRoutesFx();
-    getLinesFx();
-    getStationsFx();
-  }
+
 
   React.useEffect(() => {
-    reloadAppData()
+    downloadDataFx()
   }, [])
 
   React.useEffect(() => {
     return history.listen((newLocation) => {
-      reloadAppData();
+      downloadDataFx();
     })
   }, [location.pathname])
 

@@ -1,6 +1,7 @@
 import { Button, Collapse, Divider, Space, Tag } from 'antd';
 import React from 'react';
 import { CSVLink } from 'react-csv';
+import { NoData } from 'src/components';
 import { useLines, useRoutes, useStations } from 'src/store';
 import { convertJsonStringToCsv, genericDateToRusDateTime } from 'src/utils';
 
@@ -65,6 +66,10 @@ export const CalculatedPage = () => {
 
   const mapStatusToText = (status: number) => {
     return 'Посчитано'
+  }
+
+  if (!data.length) {
+    return <NoData message="Посчитанных маршрутов пока нет" />
   }
 
   return (

@@ -1,4 +1,4 @@
-import { CalculatorOutlined, FireFilled } from '@ant-design/icons';
+import { CalculatorOutlined, FireFilled, NodeIndexOutlined } from '@ant-design/icons';
 import { Affix, Button, Col, message, Row, Space, Tag, Transfer } from 'antd';
 import { useStore } from 'effector-react';
 import React from 'react';
@@ -134,7 +134,7 @@ export const SelectByTransfer = (props: any) => {
           fontWeight: 700
         }}
         type="primary"
-      ><FireFilled /> ПОСТРОИТЬ<br />МАРШРУТ</Button></div>
+      ><NodeIndexOutlined /> ПОСТРОИТЬ<br />МАРШРУТ</Button></div>
       <Transfer
         style={{ minWidth: '350px' }}
         locale={{

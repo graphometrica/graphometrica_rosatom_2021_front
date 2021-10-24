@@ -3,6 +3,7 @@ export type IStation = {
   id: number, //
   stationId: string //
   lineId?: string,
+  line?: ILine,
   name: string,
   inCircle?: boolean,
   top: number,
@@ -26,13 +27,16 @@ export type ILine = {
 }
 
 export type IRoute = {
-  routeId?: string,
-  stations: string[], // (1) какое название поля?
+  routeId?: number,
+  stations: string[],
+  stationInstances?: IStation[],
   status?: 1 | 2 | 3,
   created?: number,
   payload?: any,
+  calculated?: number,
   result?: {
-    route: string[], // (2)) какое название поля?
+    routeInstances?: IStation[],
+    route: string[],
     totalTime?: number,
     routeCsv?: string,
     quboMatrixCsv?: string,
@@ -40,7 +44,6 @@ export type IRoute = {
     solutionType?: string,
     hamEnergy?: number,
     solverType?: string,
-    calculated?: number
   },
 }
 
