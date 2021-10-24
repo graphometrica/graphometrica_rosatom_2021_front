@@ -36,14 +36,14 @@ export type IRoute = {
   calculated?: number,
   result?: {
     routeInstances?: IStation[],
-    route: string[],
-    totalTime?: number,
-    routeCsv?: string,
-    quboMatrixCsv?: string,
-    adjacencyMatrixCsv?: string,
-    solutionType?: string,
-    hamEnergy?: number,
-    solverType?: string,
+    route?: string[],
+    totalTime?: number | null,
+    routeCsv?: string | null,
+    quboMatrixCsv?: string | null,
+    adjacencyMatrixCsv?: string | null,
+    solutionType?: string | null,
+    hamEnergy?: number | null,
+    solverType?: string | null,
   },
 }
 

@@ -86,19 +86,7 @@ export const SelectByTransfer = (props: any) => {
   const history = useHistory()
   const calculateRoute = () => {
     const route: IRoute = {
-      stations: selected,
-      //remote:simcim
-      //remote:gurobi
-      result: {
-        route: [],
-        adjacencyMatrixCsv: '',
-        totalTime: 0,
-        quboMatrixCsv: '',
-        solutionType: '',
-        solverType: 'remote:gurobi',
-        hamEnergy: 0,
-        routeCsv: ''
-      }
+      stations: selected
     };
     createRouteFx(route).then(_ => {
       setSelected([])
@@ -115,7 +103,10 @@ export const SelectByTransfer = (props: any) => {
       <div
         className='create-route-bar'
         style={{
-
+          position: 'fixed',
+          right: 0,
+          zIndex: 2,
+          top: 68
 
         }}
       ><Button
