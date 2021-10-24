@@ -31,7 +31,7 @@ export const QueuePage = () => {
   }
 
   return (
-    <Collapse defaultActiveKey={data.map(i => i.routeId)}>
+    <Collapse defaultActiveKey={[data[0].routeId]}>
       {data.map(i => {
 
         const created = genericDateToRusDateTime(i.created, true)
