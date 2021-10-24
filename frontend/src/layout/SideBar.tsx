@@ -48,7 +48,7 @@ export const SideBar = () => {
     }
   }, [location])
 
-  const selectWithKey = (e: any) => history.push("/" + (e.key === "create" ? "" : e.key))
+  const selectWithKey = (e: any) => history.push("/" + (e.key === "create" ? "create" : e.key))
 
   return (
     <Sider
