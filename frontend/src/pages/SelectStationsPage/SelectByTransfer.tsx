@@ -3,7 +3,16 @@ import { Affix, Button, Col, message, Row, Space, Tag, Transfer } from 'antd';
 import { useStore } from 'effector-react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { createRouteFx, IRoute, useCreateRouteIsBusy, useLines, useStations } from 'src/store';
+import { MetroIcon } from 'src/components';
+import {
+  createRouteFx,
+  IRoute,
+  useCreateRouteIsBusy,
+  useLines,
+  useLinesById,
+  useStations,
+  useStationsByStationId,
+} from 'src/store';
 import { invertColor } from 'src/utils';
 
 
@@ -11,11 +20,9 @@ export const SelectByTransfer = (props: any) => {
 
   const lines = useLines();
   const stations = useStations();
-  //const { lines, stations } = props;
-  // const lines = useLines();
-  // const stations = useStations();
+  // const stationsByStationId = useStationsByStationId()
+  // const linesById = useLinesById();
 
-  //console.log(lines, stations)
 
   const [transferItems, setTransferItems] = React.useState<Array<{
     key?: string,
@@ -29,32 +36,12 @@ export const SelectByTransfer = (props: any) => {
 
     if (stations.length && lines.length) {
 
-      const linesMap = {}
 
-      const result = [];
-      stations.forEach(i => {
+      const result = stations.map(i => ({
+        key: i.stationId,
+        title: i.name
+      }))
 
-        let line = null;
-
-        //if (line) {
-        if (linesMap[i.lineId]) {
-          line = linesMap[i.lineId]
-        } else {
-          line = lines.find(j => j.id === i.lineId);
-          linesMap[line.id] = line;
-        }
-
-        result.push({
-          key: i.stationId,
-          title: i.name,
-          line: line
-        })
-        //}
-
-
-      })
-
-      //console.log(linesMap)
 
       setTransferItems(result)
     }
@@ -111,17 +98,12 @@ export const SelectByTransfer = (props: any) => {
 
   const isBusy = useCreateRouteIsBusy()
 
-
-
   return (
     <>
       <div
         className='create-route-bar'
         style={{
-          position: 'fixed',
-          right: 0,
-          zIndex: 2,
-          top: 68
+
 
         }}
       ><Button
@@ -162,11 +144,7 @@ export const SelectByTransfer = (props: any) => {
         render={item => {
           return (
             <Space>
-              <Tag style={{
-                background: '#' + item.line.color,
-                color: invertColor(item.line.color),
-                borderRadius: 12
-              }}>м</Tag>
+              <MetroIcon stationId={item.key} />
               <span>{item.title}</span>
             </Space>
           )

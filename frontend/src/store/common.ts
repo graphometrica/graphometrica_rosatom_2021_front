@@ -20,13 +20,13 @@ export type ICommonState = {
 }
 
 export const setCommonState = createEvent<ICommonState>();
-export const commonState = createStore<ICommonState>({
+export const $commonState = createStore<ICommonState>({
   isComputerBusy: null,
   queueCount: 0,
   calculatedCount: 0
 
 })
 
-commonState.on(setCommonState, (state, value) => (value));
+$commonState.on(setCommonState, (state, value) => (value));
 
-export const useCommonState = () => useStore(commonState)
+export const useCommonState = () => useStore($commonState)

@@ -1,12 +1,12 @@
-import { Button, Collapse, Divider, Space, Tag } from 'antd';
+import { Button, Collapse, Descriptions, Divider, Space, Tag } from 'antd';
 import React from 'react';
 import { CSVLink } from 'react-csv';
-import { NoData } from 'src/components';
-import { useLines, useRoutes, useStations } from 'src/store';
+import { NoData, SourceRoute } from 'src/components';
+import { IRoute, useLines, useRoutes, useStations } from 'src/store';
 import { convertJsonStringToCsv, genericDateToRusDateTime } from 'src/utils';
 
 import { OptimizedRoute } from './OptimizedRoute';
-import { SourceRoute } from './SourceRoute';
+
 
 const { Panel } = Collapse;
 
@@ -17,97 +17,76 @@ export const CalculatedPage = () => {
 
   const routes = useRoutes();
 
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState<IRoute[]>([]);
 
   React.useEffect(() => {
 
     if (stations.length && lines.length && routes.length > 0) {
-
-      const linesMap = {}
-
-      const stationsMap = {}
-
-      const result = [];
-      stations.forEach(i => {
-
-        let line = null;
-
-        //if (line) {
-        if (linesMap[i.lineId]) {
-          line = linesMap[i.lineId]
-        } else {
-          line = lines.find(j => j.id === i.lineId);
-          linesMap[line.id] = line;
-        }
-
-        stationsMap[i.stationId] = { ...i, line }
-        //}
-
-
-      })
-
-      //console.log(stationsMap)
-      routes.filter(i => i.status === 3).forEach(i => {
-
-        let sourceStationNames = i.stations.map(j => stationsMap[j]?.name || null)
-        let optimizedStationNames = i.result.route.map(j => stationsMap[j]?.name || null)
-
-        result.push({
-          ...i,
-          sourceStationNames,
-          optimizedStationNames
-        })
-      })
-
-      setData(result)
+      setData(routes.filter(i => i.status === 3))
     }
 
   }, [stations, lines, routes])
 
-  const mapStatusToText = (status: number) => {
-    return 'Посчитано'
-  }
 
   if (!data.length) {
     return <NoData message="Посчитанных маршрутов пока нет" />
   }
 
   return (
-    <Collapse>
+    <Collapse defaultActiveKey={[data[0]?.routeId]}>
       {data.map(i => {
 
+        const created = genericDateToRusDateTime(i.created, true)
+        const calculated = genericDateToRusDateTime(i.calculated, true)
+
         return (
-          <Panel key={i.routeId} header={<><Tag color={'green'}>{mapStatusToText(i.status)}</Tag> <span>{i.routeText}</span></>}>
-            <p>создан: {genericDateToRusDateTime(i.created, true) || 'недавно'}</p>
-            <p>кол-во станций: {i.stations.length}</p>
-            <p>статус: {mapStatusToText(i.status)}</p>
+          <Panel key={i.routeId}
+            style={{ background: '#f6ffed' }}
+            header={<>
+
+              <Tag color="blue">Посчитано</Tag>
+              <span style={{ fontSize: 10, paddingRight: 12 }}>{created}</span>
+              <span style={{ fontSize: 10, paddingRight: 12 }}>кол-во: {i.stationInstances.length}</span>
+
+            </>}>
+            <Descriptions >
+              <Descriptions.Item label="Создан">{created}</Descriptions.Item>
+              <Descriptions.Item label="Solution type">{i.result.solutionType}</Descriptions.Item>
+              <Descriptions.Item label="Тип бэкенда">{i.result.solverType}</Descriptions.Item>
+              <Descriptions.Item label="Посчитан">{calculated}</Descriptions.Item>
+              <Descriptions.Item label="Ham energy">
+                {i.result.hamEnergy}
+              </Descriptions.Item>
+            </Descriptions>
+
             <Divider></Divider>
 
 
-            <SourceRoute stationNames={i.sourceStationNames}></SourceRoute>
-
-            <OptimizedRoute stationNames={i.optimizedStationNames} />
+            <SourceRoute stations={i.stationInstances}></SourceRoute>
 
             <Divider></Divider>
-            <p><b>solution type:</b> {i.result.solutionType}</p>
-            <p><b>ham energy:</b> {i.result.hamEnergy}</p>
-            <p><b>solver type:</b> {i.result.solverType}</p>
+            <OptimizedRoute stations={i.result.routeInstances} />
+
+
             <Divider></Divider>
-            <Space>
+            <Space direction={"vertical"} style={{ marginBottom: 32 }}>
 
               <CSVLink
+                style={{ width: 245 }}
                 filename={"route.csv"}
                 className="ant-btn ant-btn-primary"
                 data={i.result.routeCsv}
               >Скачать маршрут в CSV</CSVLink>
 
               <CSVLink
+                style={{ width: 245 }}
                 filename={"quboMatrix.csv"}
                 className="ant-btn"
                 data={convertJsonStringToCsv(i.result.quboMatrixCsv)}
               >Скачать Qubo Matrix в CSV</CSVLink>
 
               <CSVLink
+                style={{ width: 245 }}
                 filename={"adjacencyMatrix.csv"}
                 className="ant-btn"
                 data={convertJsonStringToCsv(i.result.adjacencyMatrixCsv)}

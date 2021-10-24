@@ -19,7 +19,8 @@ export const ComputerBusyStatus: React.FC<{
   }
   let icon = null;
   if (isBusy === true) {
-    icon = <span><HourglassOutlined /> занят</span>
+    icon = <span>
+      <HourglassOutlined style={{}} spin /> &nbsp;занят</span>
   } else if (isBusy === false) {
     icon = <span><CheckCircleFilled /> свободен</span>
   } else if (isBusy === null) {

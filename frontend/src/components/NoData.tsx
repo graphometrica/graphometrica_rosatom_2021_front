@@ -1,6 +1,5 @@
 import { CheckCircleOutlined, CoffeeOutlined, NodeIndexOutlined, SmileOutlined } from '@ant-design/icons';
 import { Button, Result, Space } from 'antd';
-import { useStore } from 'effector-react';
 import React from 'react';
 
 

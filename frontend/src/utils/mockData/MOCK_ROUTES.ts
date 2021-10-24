@@ -10,7 +10,7 @@ export const MOCK_ROUTES: IRoute[] = [
       "line5_9",
       "line1_12"
     ],
-    "status": 3,
+    "status": 1,
     "payload": null,
     "created": 1635023123608,
     "calculated": 1635023175155,

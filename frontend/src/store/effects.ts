@@ -61,14 +61,21 @@ sample({
     const newStations: IStation[] = [];
     stations.forEach(i => {
 
-      const newStation = {
-        ...i,
-        line: linesById[i.lineId]
+      const line = linesById[i.lineId];
+
+      if (line) {
+        const newStation = {
+          ...i,
+          line
+        }
+        stationsByStationId[i.stationId] = newStation;
+        stationsById[i.id] = newStation;
+        newStations.push(newStation)
       }
-      stationsByStationId[i.stationId] = newStation;
-      stationsById[i.id] = newStation;
-      newStations.push(newStation)
+
     })
+
+
 
     setLinesById(linesById)
     setStationsByStationId(stationsByStationId)
@@ -90,24 +97,27 @@ sample({
     })
 
     setLines(lines);
-    setStations(stations);
+    setStations(newStations);
     setRoutes(newRoutes);
 
   }
 })
 
 export const setLinesById = createEvent<Record<string, ILine>>();
-export const $linesById = createStore<Record<string, ILine>>({});
+export const $linesById = createStore<Record<string, ILine>>({})
+  .on(setLinesById, (_, result) => result)
 
 export const setStationsByStationId = createEvent<Record<string, IStation>>();
-export const $stationsByStationId = createStore<Record<string, IStation>>({});
+export const $stationsByStationId = createStore<Record<string, IStation>>({})
+  .on(setStationsByStationId, (_, result) => result)
 
 export const setStationsById = createEvent<Record<string, IStation>>();
-export const $stationsById = createStore<Record<number, IStation>>({});
+export const $stationsById = createStore<Record<number, IStation>>({})
+  .on(setStationsById, (_, result) => result)
 
 
 export const getLinesFx = createEffect<void, ILine[]>(async () => {
-  return callBackend('GET', '/getLines')
+  return callBackend('GET', '/getLines').then(data => data.filter(i => i.color !== '000000'))
 });
 
 export const setLines = createEvent<ILine[]>()
@@ -126,25 +136,23 @@ export const $stations = createStore<IStation[]>([])
 
 
 export const getRoutesFx = createEffect<void, IRoute[]>(async () => {
-  return callBackend('GET', '/getRoutes')
+  return callBackend('GET', '/getRoutes').then(data => {
+    (data as IRoute[]).sort(function (a, b) {
+      return b.created - a.created
+    });
+    return data;
+  })
 })
 
 export const createRouteFx = createEffect<IRoute, IRoute>(async (route) => {
   return callBackend('POST', '/createRoute', route)
 })
 
-// export const setIsCreateRouteBusy = createEvent<boolean>()
-// export const $isCreateRouteBusy = createStore(false)
-//   .on(setIsCreateRouteBusy, (_, value) => value)
-
-// createRouteFx.pending.watch(pending => {
-//   setIsCreateRouteBusy(pending)
-// })
 
 
 createRouteFx.done.watch(() => {
   message.success('Маршрут добавлен в очередь');
-  getRoutesFx();
+  downloadDataFx();
 })
 
 

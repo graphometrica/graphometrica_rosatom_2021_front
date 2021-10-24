@@ -17,7 +17,7 @@ import { Badge, Layout, Menu } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
 import { HashRouter as Router, Route, Switch, useHistory, useLocation, useParams } from 'react-router-dom';
-import { menuSelected, useSelectedSideMenu } from 'src/store';
+import { menuSelected, useCommonState, useSelectedSideMenu } from 'src/store';
 
 const { Sider } = Layout;
 
@@ -31,6 +31,10 @@ export const SideBar = () => {
   const location = useLocation();
 
   const selectedSideMenu = useSelectedSideMenu();
+  const {
+    queueCount,
+    calculatedCount
+  } = useCommonState();
 
   React.useEffect(() => {
 
@@ -91,10 +95,10 @@ export const SideBar = () => {
             icon={<FileAddOutlined />} key="create">
             Создать</Menu.Item >
           <Menu.Item onClick={selectWithKey} icon={<HourglassOutlined />} key="queue">
-            <Badge size="small" count={1} offset={[15, 15]} color="blue">В очереди</Badge>
+            <Badge size="small" count={queueCount} offset={[15, 15]} color="blue">В очереди</Badge>
           </Menu.Item>
           <Menu.Item onClick={selectWithKey} icon={<CalculatorOutlined />} key="calculated">
-            <Badge size="small" count={1} offset={[15, 15]} color="blue">Посчитано</Badge></Menu.Item>
+            <Badge size="small" count={calculatedCount} offset={[15, 15]} color="blue">Посчитано</Badge></Menu.Item>
         </SubMenu>
 
       </Menu>
